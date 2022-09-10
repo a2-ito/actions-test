@@ -1,15 +1,14 @@
 name: Automatic deployment
 on:
-  pull_request:
+  push:
     branches:
       - dev
+      - stg
       - main
-    types: [closed]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true }}
 
     steps:
       - name: check
