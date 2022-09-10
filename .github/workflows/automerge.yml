@@ -2,7 +2,7 @@ name: Auto merge dev2main
 
 on:
   schedule:
-    - cron: "40 9 * * *"
+    - cron: "*/10 * * * *"
 env:
   BRANCH_FROM: dev
   BRANCH_TO: main
@@ -19,7 +19,7 @@ jobs:
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: ${{ env.BRANCH_TO }}
-          pr_title: "Pulling ${{ github.ref }} into ${{ env.BRANCH_TO }}"
+          pr_title: "Auto merge: Pulling ${{ github.ref }} into ${{ env.BRANCH_TO }}"
           pr_body: "👑 *An automated PR*"
           pr_reviewer: "a2-ito"
           pr_draft: true
