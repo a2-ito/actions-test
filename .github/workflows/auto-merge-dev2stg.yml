@@ -13,9 +13,9 @@ jobs:
   call-pr-and-merge:
     uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
     with:
-      branch_from: ${{ env.BRANCH_FROM }}
-      branch_to: ${{ env.BRANCH_TO }}
+      branch_from: dev
+      branch_to: stg
   call-deployment:
     uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
     with:
-      branch: ${ env.BRANCH_TO }}
+      branch: stg
