@@ -17,13 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ input.branch_from }}
+          ref: ${{ inputs.branch_from }}
       - name: Create Pull Request dev2stage
         id: create-pull-request
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PULL_REQUEST_URI=$(gh pr create -B ${{ input.branch_to }} -t "Auto merge: ${{ input.branch_from }} to ${{ input.branch_to }}" -b "")
+          PULL_REQUEST_URI=$(gh pr create -B ${{ inputs.branch_to }} -t "Auto merge: ${{ input.branch_from }} to ${{ input.branch_to }}" -b "")
           echo "::set-output name=PULL_REQUEST_URI::$PULL_REQUEST_URI"
       - name: Merge Pull Request dev2stage
         env:
