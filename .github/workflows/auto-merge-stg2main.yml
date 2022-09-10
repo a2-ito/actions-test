@@ -5,19 +5,16 @@ on:
     - cron: "*/30 * * * *"
 env:
   BRANCH_FROM: stg
-  BRANCH_TO: main
+  BRANCH_TO: dev
 
 jobs:
-  automerge:
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: call pr and merge
-        uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
-        with:
-          branch_from: stg
-          branch_to: main
-      - name: call deployment
-        uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
-        with:
-          branch: main
+  call-pr-and-merge:
+    uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
+      with:
+        branch_from: ${{ BRANCH_FROM }}
+        branch_to: ${{ BRANCH_TO }}
+  call-deployment:
+    uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
+    with:
+      branch: ${ BRANCH_TO }}

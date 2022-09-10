@@ -9,16 +9,13 @@ env:
   BRANCH_TO: stg
 
 jobs:
-  automerge:
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: call pr and merge
-        uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
-        with:
-          branch_from: dev
-          branch_to: stg
-      - name: call deployment
-        uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
-        with:
-          branch: stg
+  call-pr-and-merge:
+    uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
+      with:
+        branch_from: ${{ BRANCH_FROM }}
+        branch_to: ${{ BRANCH_TO }}
+  call-deployment:
+    uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
+    with:
+      branch: ${ BRANCH_TO }}
