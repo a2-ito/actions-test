@@ -2,28 +2,19 @@ name: Auto merge stg2main
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/30 * * * *"
 env:
   BRANCH_FROM: stg
-  BRANCH_TO: main
+  BRANCH_TO: dev
 
 jobs:
-  automerge:
-    runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ env.BRANCH_FROM }}
-      - name: Create Pull Request dev2stage
-        id: create-pull-request
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PULL_REQUEST_URI=$(gh pr create -B ${{ env.BRANCH_TO }} -t "Auto merge: ${{ env.BRANCH_FROM }} to ${{ env.BRANCH_TO }}" -b "")
-          echo "::set-output name=PULL_REQUEST_URI::$PULL_REQUEST_URI"
-      - name: Merge Pull Request dev2stage
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge ${{steps.create-pull-request.outputs.PULL_REQUEST_URI}} --merge
+  call-pr-and-merge:
+    uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
+    with:
+      branch_from: stg
+      branch_to: main
+  call-deployment:
+    uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
+    with:
+      branch: main
