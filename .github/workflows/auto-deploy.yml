@@ -1,11 +1,10 @@
 name: Automatic deployment
 on:
-  pull_request:
+  push:
     branches:
       - dev
       - stg
       - main
-    types: [closed]
 
 jobs:
   build-and-deploy:
