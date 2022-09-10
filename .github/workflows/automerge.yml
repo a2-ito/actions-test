@@ -2,7 +2,7 @@ name: Auto merge dev2main
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/30 * * * *"
 env:
   BRANCH_FROM: dev
   BRANCH_TO: main
@@ -22,5 +22,10 @@ jobs:
           pr_title: "Auto merge: Pulling ${{ github.ref }} into ${{ env.BRANCH_TO }}"
           pr_body: "👑 *An automated PR*"
           pr_reviewer: "a2-ito"
-          pr_draft: true
+          pr_draft: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Merge Pull Request dev2stage
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{steps.create-pull-request.outputs.PULL_REQUEST_URI}} --merge
