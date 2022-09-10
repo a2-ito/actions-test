@@ -23,7 +23,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PULL_REQUEST_URI=$(gh pr create -B ${{ inputs.branch_to }} -t "Auto merge: ${{ input.branch_from }} to ${{ input.branch_to }}" -b "")
+          PULL_REQUEST_URI=$(gh pr create -B ${{ inputs.branch_to }} -t "Auto merge: ${{ inputs.branch_from }} to ${{ inputs.branch_to }}" -b "")
           echo "::set-output name=PULL_REQUEST_URI::$PULL_REQUEST_URI"
       - name: Merge Pull Request dev2stage
         env:
