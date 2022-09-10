@@ -13,18 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: call pr and merge
+        uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
         with:
-          ref: ${{ env.BRANCH_FROM }}
-      - name: Create Pull Request dev2stage
-        id: create-pull-request
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PULL_REQUEST_URI=$(gh pr create -B ${{ env.BRANCH_TO }} -t "Auto merge: ${{ env.BRANCH_FROM }} to ${{ env.BRANCH_TO }}" -b "")
-          echo "::set-output name=PULL_REQUEST_URI::$PULL_REQUEST_URI"
-      - name: Merge Pull Request dev2stage
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge ${{steps.create-pull-request.outputs.PULL_REQUEST_URI}} --merge
+          branch_from: dev
+          branch_to: stg
+      - name: call deployment
+        uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
+        with:
+          branch: stg

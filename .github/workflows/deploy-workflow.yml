@@ -1,0 +1,17 @@
+name: Deployment workflow
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check
+        run: |
+          echo ${{ inputs.branch }}" is merged!"
