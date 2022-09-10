@@ -15,15 +15,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ env.BRANCH_FROM }}
-      - name: Create Pull Request dev2stg
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: ${{ env.BRANCH_TO }}
-          pr_title: "Auto merge: Pulling ${{ github.ref }} into ${{ env.BRANCH_TO }}"
-          pr_body: "👑 *An automated PR*"
-          pr_reviewer: "a2-ito"
-          pr_draft: false
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Pull Request dev2stage
+        id: create-pull-request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PULL_REQUEST_URI=$(gh pr create -B ${{ env.BRANCH_TO }} -t Auto: dev2main -l 'auto merge' -b "")
+          echo "::set-output name=PULL_REQUEST_URI::$PULL_REQUEST_URI"
       - name: Merge Pull Request dev2stage
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
