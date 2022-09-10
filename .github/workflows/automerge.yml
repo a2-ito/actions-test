@@ -1,0 +1,26 @@
+name: Auto merge dev2main
+
+on:
+  schedule:
+    - cron: "40 9 * * *"
+env:
+  BRANCH_FROM: dev
+  BRANCH_TO: main
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH_FROM }}
+      - name: Create Pull Request dev2stg
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: ${{ env.BRANCH_TO }}
+          pr_title: "Pulling ${{ github.ref }} into ${{ env.BRANCH_TO }}"
+          pr_body: "👑 *An automated PR*"
+          pr_reviewer: "a2-ito"
+          pr_draft: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
