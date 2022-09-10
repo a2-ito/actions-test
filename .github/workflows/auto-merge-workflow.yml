@@ -1,0 +1,32 @@
+name: Auto merge workflow
+
+on:
+  workflow_call:
+    inputs:
+      branch_from:
+        required: true
+        type: string
+      branch_to:
+        required: true
+        type: string
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.branch_from }}
+      - name: Create Pull Request dev2stage
+        id: create-pull-request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PULL_REQUEST_URI=$(gh pr create -B ${{ inputs.branch_to }} -t "Auto merge: ${{ inputs.branch_from }} to ${{ inputs.branch_to }}" -b "")
+          echo "::set-output name=PULL_REQUEST_URI::$PULL_REQUEST_URI"
+      - name: Merge Pull Request dev2stage
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{steps.create-pull-request.outputs.PULL_REQUEST_URI}} --merge
