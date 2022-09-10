@@ -16,6 +16,7 @@ jobs:
       branch_from: dev
       branch_to: stg
   call-deployment:
+    needs: call-pr-and-merge
     uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
     with:
       branch: stg
