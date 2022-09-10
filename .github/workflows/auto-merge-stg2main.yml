@@ -1,11 +1,10 @@
-name: Auto merge dev2main
+name: Auto merge stg2main
 
 on:
-  push:
-  #schedule:
-  #  - cron: "*/30 * * * *"
+  schedule:
+    - cron: "*/10 * * * *"
 env:
-  BRANCH_FROM: dev
+  BRANCH_FROM: stg
   BRANCH_TO: main
 
 jobs:
@@ -21,7 +20,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PULL_REQUEST_URI=$(gh pr create -B ${{ env.BRANCH_TO }} -t "Auto: dev2main" -b "")
+          PULL_REQUEST_URI=$(gh pr create -B ${{ env.BRANCH_TO }} -t "Auto merge: ${{ env.BRANCH_FROM }} to ${{ env.BRANCH_TO }}" -b "")
           echo "::set-output name=PULL_REQUEST_URI::$PULL_REQUEST_URI"
       - name: Merge Pull Request dev2stage
         env:
