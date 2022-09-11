@@ -1,9 +1,8 @@
-name: Auto merge dev2stg
+name: Auto Merge and Deploy to stg - scheduled
 
 on:
-  push:
-  #schedule:
-  #  - cron: "*/30 * * * *"
+  schedule:
+    - cron: "0 * * * *"
 env:
   BRANCH_FROM: dev
   BRANCH_TO: stg
@@ -11,7 +10,7 @@ env:
 jobs:
 
   call-pr-and-merge:
-    uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
+    uses: a2-ito/actions-test/.github/workflows/merge-workflow.yml@dev
     with:
       branch_from: dev
       branch_to: stg
