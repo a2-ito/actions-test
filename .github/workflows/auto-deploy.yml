@@ -9,6 +9,7 @@ on:
 
 jobs:
   call-deployment:
+    if: ${{ github.event.pull_request.merged == true }}
     uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
     with:
       branch: ${{ github.base_ref }}
