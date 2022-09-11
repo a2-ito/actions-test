@@ -22,6 +22,8 @@ jobs:
           echo "::set-output name=branch_to::$BRANCH_TO"
 
   call-pr-and-merge:
+    needs:
+      - print
     uses: a2-ito/actions-test/.github/workflows/merge-workflow.yml@dev
     with:
       branch_from: ${{ needs.print.outputs.branch_from }}
