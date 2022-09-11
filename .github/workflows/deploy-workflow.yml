@@ -19,7 +19,7 @@ jobs:
     steps:
       # todo: switch a deploy env value by inputs.branch
       - name: Specify outputs
-        if: inputs.branch = null
+        if: inputs.branch == null
         id: set_output
         shell: bash
         run: |
