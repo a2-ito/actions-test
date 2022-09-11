@@ -1,4 +1,4 @@
-name: Auto merge workflow
+name: Merge Workflow
 
 on:
   workflow_call:

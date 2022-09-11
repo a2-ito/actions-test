@@ -1,4 +1,4 @@
-name: Auto merge stg2main
+name: Auto Merge and Deploy to main - scheduled
 
 on:
   schedule:
