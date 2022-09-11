@@ -1,4 +1,3 @@
 # actions-test
 
-dev test
-dev test 2
+dev test 3
