@@ -14,4 +14,6 @@ jobs:
     steps:
       - name: check
         run: |
+          echo "github.ref: "${{ github.ref}}
+          echo "github.base_ref: "${{ github.base_ref}}
           echo ${{ inputs.branch }}" is merged!"
