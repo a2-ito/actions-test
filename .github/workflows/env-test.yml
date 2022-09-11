@@ -1,0 +1,30 @@
+name: Env test
+
+on:
+  workflow_dispatch:
+
+env:
+  SAMPLE: hoge
+  BRANCH_FROM: dev
+  BRANCH_TO: stg
+
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    outputs:
+      branch_from: ${{ steps.set_output.outputs.branch_from }}
+      branch_to: ${{ steps.set_output.outputs.branch_to }}
+    steps:
+      - name: Print inputs for reusable workflows
+        id: set_output
+        run: |
+          echo "::set-output name=branch_from::$BRANCH_FROM"
+          echo "::set-output name=branch_to::$BRANCH_TO"
+
+  call-pr-and-merge:
+    needs:
+      - print
+    uses: a2-ito/actions-test/.github/workflows/merge-workflow.yml@dev
+    with:
+      branch_from: ${{ needs.print.outputs.branch_from }}
+      branch_to: ${{ needs.print.outputs.branch_to }}

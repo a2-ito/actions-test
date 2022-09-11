@@ -1,0 +1,14 @@
+name: Automatic deployment
+on:
+  pull_request:
+    branches:
+      - dev
+      - stg
+      - main
+    types: [closed]
+
+jobs:
+  call-deployment:
+    uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
+    with:
+      branch: ${{ github.base_ref }}
