@@ -22,5 +22,5 @@ jobs:
   call-pr-and-merge:
     uses: a2-ito/actions-test/.github/workflows/merge-workflow.yml@dev
     with:
-      branch_from: $BRANCH_FROM
-      branch_to: $BRANCH_TO
+      branch_from: "$BRANCH_FROM"
+      branch_to: "$BRANCH_TO"
