@@ -2,7 +2,7 @@ name: Auto Merge and Deploy to main - scheduled
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "15 * * * *"
 env:
   BRANCH_FROM: stg
   BRANCH_TO: dev
