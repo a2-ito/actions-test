@@ -1,0 +1,17 @@
+name: Env test
+
+on:
+  workflow_dispatch:
+
+env:
+  SAMPLE: hoge
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: test
+        run: |
+          echo $SAMPLE
+          echo ${SAMPLE}
