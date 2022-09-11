@@ -2,20 +2,20 @@ name: Auto Merge and Deploy to main - scheduled
 
 on:
   schedule:
-    - cron: "15 * * * *"
+    - cron: "30 * * * *"
 env:
   BRANCH_FROM: stg
-  BRANCH_TO: dev
+  BRANCH_TO: main
 
 jobs:
 
   call-pr-and-merge:
-    uses: a2-ito/actions-test/.github/workflows/auto-merge-workflow.yml@dev
+    uses: a2-ito/actions-test/.github/workflows/merge-workflow.yml@dev
     with:
-      branch_from: stg
-      branch_to: main
+      branch_from: $BRANCH_FROM
+      branch_to: $BRANCH_TO
   call-deployment:
     needs: call-pr-and-merge
     uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
     with:
-      branch: main
+      branch: $BRANCH_TO

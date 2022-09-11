@@ -17,8 +17,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # todo: switch a deploy env value by inputs.branch
+      - name: Extract branch name
+        if: inputs.branch == null
+        shell: bash
+        run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> ${GITHUB_ENV}
+      - name: Set Branch
+        if: inputs.branch != null
+        run: echo "BRANCH=${{ inputs.branch }}" >> ${GITHUB_ENV}
+      - name: Specify DEPLOY_ENV
+        id: set_output
+        shell: bash
+        run: |
+          echo ${{ github.ref }}
+          case "${{ env.BRANCH }}" in
+            "dev" ) echo "::set-output name=DEPLOY_ENV::dev" ;;
+            "stg" ) echo "::set-output name=DEPLOY_ENV::stg" ;;
+            "main" ) echo "::set-output name=DEPLOY_ENV::prd" ;;
+            * ) echo "::set-output name=DEPLOY_ENV::dev" ;;
+          esac
       - name: check
         run: |
           echo "github.ref: "${{ github.ref}}
           echo "github.base_ref: "${{ github.base_ref}}
-          echo ${{ inputs.branch }}" is merged!"
+          echo  ${{ env.BRANCH }}" is deployed to "${{ steps.set_output.outputs.DEPLOY_ENV }}
