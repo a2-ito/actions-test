@@ -9,18 +9,20 @@ env:
   BRANCH_TO: stg
 
 jobs:
-  build-and-deploy:
+  print:
     runs-on: ubuntu-latest
-
+    outputs:
+      branch_from: ${{ steps.set_output.output.branch_from }}
+      branch_from: ${{ steps.set_output.output.branch_to }}
     steps:
-      - name: test
+      - name: Print inputs for reusable workflows
+        id: set_output
         run: |
-          echo $SAMPLE
-          echo ${SAMPLE}
-          echo $BRANCH_FROM
+          echo "::set-output name=branch_from::$BRANCH_FROM"
+          echo "::set-output name=branch_to::$BRANCH_TO"
 
   call-pr-and-merge:
     uses: a2-ito/actions-test/.github/workflows/merge-workflow.yml@dev
     with:
-      branch_from: "$BRANCH_FROM"
-      branch_to: "$BRANCH_TO"
+      branch_from: ${{ needs.print.outputs.branch_from }}
+      branch_to: ${{ needs.print.outputs.branch_to }}
