@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # todo: switch a deploy env value by inputs.branch
       - name: check
         run: |
           echo "github.ref: "${{ github.ref}}

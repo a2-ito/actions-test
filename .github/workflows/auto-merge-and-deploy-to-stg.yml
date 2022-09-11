@@ -12,10 +12,10 @@ jobs:
   call-pr-and-merge:
     uses: a2-ito/actions-test/.github/workflows/merge-workflow.yml@dev
     with:
-      branch_from: dev
-      branch_to: stg
+      branch_from: ${{ env.BRANCH_FROM }}
+      branch_to: ${{ env.BRANCH_TO }}
   call-deployment:
     needs: call-pr-and-merge
     uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
     with:
-      branch: stg
+      branch: ${{ env.BRANCH_TO }}
