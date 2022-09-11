@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       branch_from: ${{ steps.set_output.output.branch_from }}
-      branch_from: ${{ steps.set_output.output.branch_to }}
+      branch_to: ${{ steps.set_output.output.branch_to }}
     steps:
       - name: Print inputs for reusable workflows
         id: set_output
