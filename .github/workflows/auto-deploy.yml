@@ -12,4 +12,4 @@ jobs:
     needs: call-pr-and-merge
     uses: a2-ito/actions-test/.github/workflows/deploy-workflow.yml@dev
     with:
-      branch: ${{ githu.base_ref }}
+      branch: ${{ github.base_ref }}
