@@ -37,10 +37,10 @@ jobs:
             * ) echo "::set-output name=DEPLOY_ENV::dev" ;;
           esac
       - name: credentials - dev/stg
-        if: env.BRANCH == "dev" || env.BRANCH == "stg"
+        if: ${{ env.BRANCH == 'dev' }} || ${{ env.BRANCH == 'stg' }}
         run: echo ${{ env.BRANCH }}
       - name: credentials - prd
-        if: env.BRANCH == "prd"
+        if: ${{ env.BRANCH == 'prd' }}
         run: echo ${{ env.BRANCH }}
       - name: check
         run: |
