@@ -18,6 +18,13 @@ jobs:
 
     steps:
       # todo: switch a deploy env value by inputs.branch
+      - name: Extract branch name
+        if: inputs.branch == null
+        shell: bash
+        run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> ${GITHUB_ENV}
+      - name: Set Branch
+        if: inputs.branch != null
+        run: echo "BRANCH=${{ inputs.branch }}" >> ${GITHUB_ENV}
       - name: Specify outputs
         if: inputs.branch = null
         id: set_output
@@ -44,6 +51,12 @@ jobs:
             "main" ) echo "::set-output name=DEPLOY_ENV::prd" ;;
             * ) echo "::set-output name=DEPLOY_ENV::dev" ;;
           esac
+      - name: credentials - dev/stg
+        if: ${{ env.BRANCH }} == "dev" || ${{ env.BRANCH }} == "stg"
+        run: echo ${{ env.BRANCH }}
+      - name: credentials - prd
+        if: ${{ env.BRANCH }} == "prd"
+        run: echo ${{ env.BRANCH }}
       - name: check
         run: |
           echo "github.ref: "${{ github.ref}}
