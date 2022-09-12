@@ -30,7 +30,8 @@ jobs:
         shell: bash
         run: |
           echo ${{ github.ref }}
-          case ${{ env.BRANCH }} in
+          echo "env.BRANCH: ${{ env.BRANCH }}"
+          case "${{ env.BRANCH }}" in
             "dev" ) echo "::set-output name=DEPLOY_ENV::dev_ph3" ;;
             "stg" ) echo "::set-output name=DEPLOY_ENV::stg_ph3" ;;
             "main" ) echo "::set-output name=DEPLOY_ENV::prd_ph3" ;;
