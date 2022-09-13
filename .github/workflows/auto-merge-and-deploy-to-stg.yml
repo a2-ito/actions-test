@@ -2,7 +2,9 @@ name: Auto Merge and Deploy to stg - scheduled
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
 env:
   BRANCH_FROM: dev
   BRANCH_TO: stg
