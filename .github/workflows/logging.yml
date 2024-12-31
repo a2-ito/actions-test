@@ -1,0 +1,60 @@
+name: logging
+
+on:
+  workflow_dispatch:
+
+env:
+  SAMPLE: hoge
+  BRANCH_FROM: dev
+  BRANCH_TO: stg
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    env:
+      ACTIONS_STEP_DEBUG: true
+    steps:
+      - run: echo "::debug::This is a debug log"
+      - run: echo "This is not a debug log"
+
+  bash-tracing:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          set -x
+          date
+          hostname
+
+  log-group:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "::group::Show environment variables"
+          printenv
+          echo "::endgroup::"
+
+  masking:
+    runs-on: ubuntu-latest
+    env:
+      MY_SECRET: "hogehoge"
+    steps:
+      - name: echo masked secret
+        run: |
+          echo "::add-mask::${{ env.MY_SECRET }}"
+          echo ${{ env.MY_SECRET }}
+
+  annotation:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "::error::This is an error"
+      - run: echo "::warning::This is a warning"
+      - run: echo "::notice::This is a notice"
+
+  sammary:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "## Example Title :rocket:" >> "${GITHUB_STEP_SUMMARY}"
+          echo "- first line" >> ${GITHUB_STEP_SUMMARY}"
+          echo "- second line" >> ${GITHUB_STEP_SUMMARY}"
+

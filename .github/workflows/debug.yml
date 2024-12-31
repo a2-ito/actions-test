@@ -1,0 +1,24 @@
+name: debug
+
+on:
+  workflow_dispatch:
+
+env:
+  SAMPLE: hoge
+  BRANCH_FROM: dev
+  BRANCH_TO: stg
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    environment: debug
+    steps:
+      - run: echo "::debug::This is a debug log"
+      - run: echo "This is not a debug log"
+
+  no-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "::debug::This is a debug log"
+      - run: echo "This is not a debug log"
+
