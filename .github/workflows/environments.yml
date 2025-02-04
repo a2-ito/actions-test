@@ -1,0 +1,32 @@
+name: Environments
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment-name:
+        description: 'Environment name'
+        required: false
+        default: test
+
+jobs:
+  # 指定した環境の変数が表示される
+  print-env-values:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment-name }}
+    env:
+      USERNAME: ${{ vars.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - run: echo "${USERNAME}"
+      - run: echo "${PASSWORD}"
+
+  # environment を指定しない場合は、Repository の環境変数が表示される
+  print-repo-values:
+    runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ vars.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - run: echo "${USERNAME}"
+      - run: echo "${PASSWORD}"
+
