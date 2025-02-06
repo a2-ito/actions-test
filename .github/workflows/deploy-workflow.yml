@@ -14,7 +14,8 @@ on:
 
 jobs:
   build-and-deploy:
-    if: ${{ github.ref != 'refs/heads/main' }}
+    if: ${{ !github.event.pull_request.draft }} && ${{ github.ref != 'refs/heads/production' }}
+    # if: ${{ github.ref != 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     steps:
