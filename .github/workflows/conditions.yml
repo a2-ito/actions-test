@@ -1,0 +1,34 @@
+name: conditions
+
+on:
+  push:
+
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+    - name: env
+      id: changes
+      run: |
+        echo "infra=false" >> $GITHUB_OUTPUT
+
+    - name: hoge1
+      if: ${{ steps.changes.outputs.infra == 'true' }} && ${{ github.ref != 'refs/heads/production' }}
+      run: |
+        echo "hoge1"
+
+    - name: hoge2
+      if: ${{ steps.changes.outputs.infra == 'true' }}
+      run: |
+        echo "hoge2"
+
+    - name: hoge3
+      if: ${{ github.ref != 'refs/heads/production' }}
+      run: |
+        echo "hoge3"
+
+    - name: hoge4
+      if: ${{ steps.changes.outputs.infra == 'true' && github.ref != 'refs/heads/production' }}
+      run: |
+        echo "hoge4"
+
