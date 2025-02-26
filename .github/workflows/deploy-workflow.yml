@@ -50,3 +50,8 @@ jobs:
           echo "github.ref: "${{ github.ref}}
           echo "github.base_ref: "${{ github.base_ref}}
           echo  ${{ env.BRANCH }}" is deployed to "${{ steps.set_output.outputs.DEPLOY_ENV }}
+      - name: job summary
+        run: |
+          echo "Target Cluster: blue" >> $GITHUB_STEP_SUMMARY
+          echo "github.ref: "${{ github.ref}} >> $GITHUB_STEP_SUMMARY
+          echo "github.base_ref: "${{ github.base_ref}} >> $GITHUB_STEP_SUMMARY
