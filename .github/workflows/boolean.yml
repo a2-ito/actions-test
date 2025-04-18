@@ -12,3 +12,5 @@ jobs:
         echo ${{ false || true }}
         echo ${{ 'true' || false }}
         echo ${{ 'false' || true }}
+        echo ${{ fromJson('true') || false }}
+        echo ${{ fromJson('false') || true }}
