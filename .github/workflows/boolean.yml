@@ -10,7 +10,11 @@ jobs:
     - run: |
         echo ${{ true || false }}
         echo ${{ false || true }}
+        echo ${{ 'true' || true }}
         echo ${{ 'true' || false }}
         echo ${{ 'false' || true }}
+        echo ${{ 'false' || false }}
+        echo ${{ 'hoge' || true }}
+        echo ${{ 'hoge' || false }}
         echo ${{ fromJson('true') || false }}
         echo ${{ fromJson('false') || true }}
