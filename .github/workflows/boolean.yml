@@ -1,0 +1,12 @@
+name: boolean
+
+on:
+  push:
+
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo ${{ true || false }}
+        echo ${{ false || true }}
