@@ -1,10 +1,11 @@
 name: context
- 
+
 on:
   pull_request:
     branches:
       - main
     types: [closed]
+  workflow_dispatch:
 
 jobs:
   print:
@@ -23,4 +24,4 @@ jobs:
         echo "github.event.push.bae_ref: ${{ github.event.push.base_ref }}"
         echo "github.event.push.ref: ${{ github.event.push.ref }}"
         echo "github.event.push.ref_name: ${{ github.event.push.ref_name }}"
- 
+
