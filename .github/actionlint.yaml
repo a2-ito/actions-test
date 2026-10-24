@@ -1,0 +1,30 @@
+# 動きを試すためのワークフローで、わざと型の違う入力や存在しないジョブを使っているものがある。
+# 直すと試したかったことが変わるので、指摘の出るワークフローは actionlint の対象から外す
+paths:
+  .github/workflows/auto-merge-and-deploy-to-main.yml:
+    ignore:
+      - ".+"
+  .github/workflows/auto-merge-and-deploy-to-stg.yml:
+    ignore:
+      - ".+"
+  .github/workflows/conditions.yml:
+    ignore:
+      - ".+"
+  .github/workflows/context.yml:
+    ignore:
+      - ".+"
+  .github/workflows/deploy-workflow.yml:
+    ignore:
+      - ".+"
+  .github/workflows/env-test.yml:
+    ignore:
+      - ".+"
+  .github/workflows/logging.yml:
+    ignore:
+      - ".+"
+  .github/workflows/merge-workflow.yml:
+    ignore:
+      - ".+"
+  .github/workflows/sharejobdata.yml:
+    ignore:
+      - ".+"
