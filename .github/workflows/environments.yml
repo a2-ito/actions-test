@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment-name:
-        description: 'Environment name'
+        description: "Environment name"
         required: false
         default: test
 
@@ -29,4 +29,3 @@ jobs:
     steps:
       - run: echo "${USERNAME}"
       - run: echo "${PASSWORD}"
-
