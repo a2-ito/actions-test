@@ -41,5 +41,3 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: |
           echo "OS: ${{ matrix.os }}"
-
-

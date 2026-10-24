@@ -20,4 +20,3 @@ jobs:
     needs: [second]
     steps:
       - run: sleep 10 && echo "Third job"
-
