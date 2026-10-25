@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [18, 20]
+        node: [24, 26]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Print
@@ -31,9 +31,9 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            node: 18
+            node: 24
           - os: macos-latest
-            node: 20
+            node: 26
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/setup-node@4
